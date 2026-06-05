@@ -5,18 +5,24 @@
 </head>
 <body>
 
-<h1>Darmon tizimi</h1>
+<h1>Darmon.uz</h1>
 
 <h2>Klinika: Namuna Klinika</h2>
 
-<h3>Shifokorlar:</h3>
-<ul>
-    <li>Dr. Aliyev - Terapevt</li>
-    <li>Dr. Karimov - Stomatolog</li>
-</ul>
+<h3>Shifokor: Dr. Aliyev</h3>
 
-<h3>Navbat olish (demo):</h3>
-<button>Navbat olish</button>
+<p>Navbat raqami: <span id="queue">0</span></p>
+
+<button onclick="takeQueue()">Navbat olish</button>
+
+<script>
+let count = 0;
+
+function takeQueue() {
+    count++;
+    document.getElementById("queue").innerText = count;
+}
+</script>
 
 </body>
 </html>
