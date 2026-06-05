@@ -16,10 +16,12 @@
 <button onclick="takeQueue()">Navbat olish</button>
 
 <script>
-let count = 0;
+let count = localStorage.getItem("queue") || 0;
+count = Number(count);
 
 function takeQueue() {
     count++;
+    localStorage.setItem("queue", count);
     document.getElementById("queue").innerText = count;
 }
 </script>
