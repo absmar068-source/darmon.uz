@@ -1,2 +1,2 @@
 # darmon.uz
-Darmon.uz doti va tibbiy xizmatlarni qidirish va solishtirish platformasi.
+Darmon.uz dori va tibbiy xizmatlarni qidirish va solishtirish platformasi.
