@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Darmon.uz</title>
+  <title>Darmon.uz</title>
 </head>
 <body>
 
@@ -15,15 +15,40 @@
 
 <button onclick="takeQueue()">Navbat olish</button>
 
-<script>
-let count = localStorage.getItem("queue") || 0;
-count = Number(count);
+<script type="module">
+  // Firebase SDK
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-function takeQueue() {
-    count++;
-    localStorage.setItem("queue", count);
-    document.getElementById("queue").innerText = count;
-}
+  // Firebase config (SENIKI)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDwWpQl4ImkT_ig0nHVa7xWpF5ixwgBw7s",
+    authDomain: "darmon103.firebaseapp.com",
+    projectId: "darmon103",
+    storageBucket: "darmon103.appspot.com",
+    messagingSenderId: "151196294903",
+    appId: "1:151196294903:web:5b793bda67377897647df2",
+    measurementId: "G-HJ6S8NHZX1"
+  };
+
+  // init
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const countRef = ref(db, "queue/count");
+
+  // live update
+  onValue(countRef, (snap) => {
+    document.getElementById("queue").innerText = snap.val() || 0;
+  });
+
+  // button
+  window.takeQueue = function () {
+    runTransaction(countRef, (current) => {
+      return (current || 0) + 1;
+    });
+  };
+
 </script>
 
 </body>
