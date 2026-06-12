@@ -1,277 +1,52 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Darmon.uz</title>
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#f5f7fb;
-color:#333;
-}
-
-header{
-background:#0d6efd;
-color:white;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.logo{
-font-size:28px;
-font-weight:bold;
-}
-
-.btn{
-background:white;
-color:#0d6efd;
-padding:10px 20px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-font-weight:bold;
-}
-
-.hero{
-padding:50px 20px;
-text-align:center;
-}
-
-.hero h1{
-font-size:40px;
-margin-bottom:15px;
-}
-
-.hero p{
-color:#666;
-margin-bottom:20px;
-}
-
-.search{
-max-width:600px;
-margin:auto;
-display:flex;
-gap:10px;
-}
-
-.search input{
-flex:1;
-padding:15px;
-border:1px solid #ddd;
-border-radius:10px;
-}
-
-.search button{
-padding:15px 25px;
-background:#0d6efd;
-color:white;
-border:none;
-border-radius:10px;
-cursor:pointer;
-}
-
-.section{
-padding:40px 20px;
-max-width:1200px;
-margin:auto;
-}
-
-.section h2{
-margin-bottom:20px;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-}
-
-.card{
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-
-.doctor-img{
-width:100px;
-height:100px;
-border-radius:50%;
-background:#ddd;
-margin:auto;
-margin-bottom:15px;
-}
-
-.card h3{
-text-align:center;
-margin-bottom:10px;
-}
-
-.card p{
-text-align:center;
-margin-bottom:8px;
-}
-
-.book-btn{
-width:100%;
-padding:12px;
-background:#0d6efd;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-margin-top:10px;
-}
-
-.form{
-background:white;
-padding:25px;
-border-radius:15px;
-max-width:500px;
-margin:auto;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-
-.form input,
-.form select{
-width:100%;
-padding:12px;
-margin-top:10px;
-border:1px solid #ddd;
-border-radius:8px;
-}
-
-.form button{
-width:100%;
-margin-top:15px;
-padding:12px;
-background:#0d6efd;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-}
-
-footer{
-background:#0d6efd;
-color:white;
-text-align:center;
-padding:20px;
-margin-top:40px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Darmon.uz</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-<div class="logo">Darmon.uz</div>
-<button class="btn">Kirish</button>
-</header>
-
-<section class="hero">
-<h1>Shifokor qabuli uchun navbat oling</h1>
-<p>Eng yaqin klinikani toping va online navbat band qiling</p>
-
-<div class="search">
-<input type="text" placeholder="Shifokor yoki mutaxassislik">
-<button>Qidirish</button>
-</div>
-</section>
-
-<section class="section">
-<h2>Shifokorlar</h2>
-
-<div class="cards">
-
-<div class="card">
-<div class="doctor-img"></div>
-<h3>Dr. Aliyev</h3>
-<p>Kardiolog</p>
-<p>10 yillik tajriba</p>
-<p>⭐ 4.8</p>
-<button class="book-btn">Navbat olish</button>
+<!-- LOGIN -->
+<div id="loginPage" class="page">
+  <div class="card">
+    <h2>Kirish / Ro‘yxatdan o‘tish</h2>
+    <input id="userName" placeholder="Ism">
+    <input id="userPhone" placeholder="Telefon">
+    <button onclick="login()">Kirish</button>
+  </div>
 </div>
 
-<div class="card">
-<div class="doctor-img"></div>
-<h3>Dr. Karimova</h3>
-<p>Terapevt</p>
-<p>8 yillik tajriba</p>
-<p>⭐ 4.9</p>
-<button class="book-btn">Navbat olish</button>
-</div>
+<!-- APP -->
+<div id="appPage" class="hidden">
+
+  <header>
+    <h1>Darmon.uz</h1>
+    <button onclick="logout()">Chiqish</button>
+  </header>
+
+  <!-- CLINICS -->
+  <section>
+    <h2>Klinikalar</h2>
+    <div id="clinics"></div>
+  </section>
+
+  <!-- DOCTORS -->
+  <section>
+    <h2>Shifokorlar</h2>
+    <div id="doctors"></div>
+  </section>
+
+  <!-- PROFILE -->
+  <section>
+    <h2>Profil</h2>
+    <div id="profile"></div>
+  </section>
 
 </div>
-</section>
 
-<section class="section">
-<h2>Navbat band qilish</h2>
-
-<div class="form">
-
-<input type="text" id="name" placeholder="Ismingiz">
-
-<input type="tel" id="phone" placeholder="Telefon">
-
-<select id="doctor">
-<option>Dr. Aliyev</option>
-<option>Dr. Karimova</option>
-</select>
-
-<input type="date" id="date">
-
-<select id="time">
-<option>09:00</option>
-<option>10:00</option>
-<option>11:00</option>
-<option>14:00</option>
-<option>15:00</option>
-</select>
-
-<button onclick="bookAppointment()">Band qilish</button>
-
-</div>
-</section>
-
-<footer>
-© 2026 Darmon.uz
-</footer>
-
-<script>
-function bookAppointment(){
-
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let doctor=document.getElementById("doctor").value;
-let date=document.getElementById("date").value;
-let time=document.getElementById("time").value;
-
-if(name==="" || phone==="" || date===""){
-alert("Barcha maydonlarni to'ldiring");
-return;
-}
-
-alert(
-"Navbat muvaffaqiyatli band qilindi!\n\n"+
-"Ism: "+name+
-"\nShifokor: "+doctor+
-"\nSana: "+date+
-"\nVaqt: "+time
-);
-
-}
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
