@@ -14,63 +14,56 @@ const doctors = [
   {id:"drk03", name:"Dr Boboyev", clinic:"k2"},
 ];
 
-/* LOGIN */
+/* LOGIN FUNCTION GLOBAL QILAMIZ */
+window.login = function () {
 
-function login(){
   const name = document.getElementById("userName").value;
   const phone = document.getElementById("userPhone").value;
 
-  if(!name || !phone) return alert("To‘ldir");
+  if(!name || !phone){
+    alert("Ism va telefonni kiriting");
+    return;
+  }
 
   user = {name, phone};
 
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("appPage").classList.remove("hidden");
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("appPage").style.display = "block";
 
   render();
 }
 
-/* LOGOUT */
-
-function logout(){
-  user = null;
+window.logout = function () {
   location.reload();
 }
-
-/* RENDER */
 
 function render(){
 
   // clinics
-  let cHtml = "";
-  clinics.forEach(c=>{
-    cHtml += `<div class="item">${c.name}</div>`;
-  });
-  document.getElementById("clinics").innerHTML = cHtml;
+  document.getElementById("clinics").innerHTML =
+    clinics.map(c => `
+      <div class="item">${c.name}</div>
+    `).join("");
 
   // doctors
-  let dHtml = "";
-  doctors.forEach(d=>{
-    dHtml += `
+  document.getElementById("doctors").innerHTML =
+    doctors.map(d => `
       <div class="item">
         <b>${d.name}</b><br>
         Klinikasi: ${d.clinic}
         <button onclick="book('${d.id}')">Navbat olish</button>
       </div>
-    `;
-  });
-  document.getElementById("doctors").innerHTML = dHtml;
+    `).join("");
 
   // profile
-  document.getElementById("profile").innerHTML =
-    `<div class="item">
+  document.getElementById("profile").innerHTML = `
+    <div class="item">
       Ism: ${user.name}<br>
       Telefon: ${user.phone}
-    </div>`;
+    </div>
+  `;
 }
 
-/* BOOK */
-
-function book(docId){
-  alert("Navbat olindi: " + docId);
+window.book = function(id){
+  alert("Navbat olindi: " + id);
 }
