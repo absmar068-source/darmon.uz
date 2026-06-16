@@ -116,53 +116,105 @@
         </section>
 
         <!-- 4. ADMIN PANEL PAGE -->
-        <section id="page-admin" class="page-section hidden">
+       <section id="page-admin" class="page-section hidden">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold text-blue-950">Boshqaruv Paneli (Admin Dashboard)</h2>
-                <button onclick="navigateTo('home')" class="text-sm bg-slate-200 px-4 py-2 rounded-xl font-medium text-slate-700">Chiqish</button>
+                <h2 class="text-2xl font-bold text-blue-950">Bemor Shaxsiy Kabineti</h2>
+                <button onclick="navigateTo('home')" class="text-sm bg-slate-200 hover:bg-slate-300 px-4 py-2 rounded-xl font-medium text-slate-700 transition">Asosiy sahifa</button>
             </div>
             
-            <!-- Statistika kartalari -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                    <p class="text-slate-400 text-xs font-medium">Umumiy Klinikalar</p>
-                    <p class="text-2xl font-bold text-blue-950 mt-1">12 ta</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
+                    <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-id-card text-emerald-500"></i> Shaxsiy Ma'lumotlar
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Ism Familiya (O'zgartirib bo'lmaydi)</label>
+                            <input type="text" value="Marufov Eshmat" class="w-full bg-slate-100 px-4 py-2.5 rounded-xl text-slate-500 text-sm border border-slate-200 focus:outline-none cursor-not-allowed" disabled>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Telefon Raqam</label>
+                            <input type="text" id="bemorTel" value="+998 90 123 45 67" class="w-full bg-white px-4 py-2.5 rounded-xl text-slate-800 text-sm border border-slate-200 focus:border-emerald-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Yashash Manzili</label>
+                            <input type="text" id="bemorManzil" value="Toshkent sh., Chilonzor tumani" class="w-full bg-white px-4 py-2.5 rounded-xl text-slate-800 text-sm border border-slate-200 focus:border-emerald-500 focus:outline-none">
+                        </div>
+                        <button onclick="saqlashBemorMalumotlari()" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl text-sm transition shadow-md shadow-emerald-500/10">O'zgarishlarni Saqlash</button>
+                    </div>
                 </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                    <p class="text-slate-400 text-xs font-medium">Ro'yxatdagi Shifokorlar</p>
-                    <p class="text-2xl font-bold text-blue-950 mt-1">120 ta</p>
-                </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                    <p class="text-slate-400 text-xs font-medium">Bugungi Qabullar</p>
-                    <p class="text-2xl font-bold text-emerald-600 mt-1" id="admin-total-appointments">0 ta</p>
-                </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                    <p class="text-slate-400 text-xs font-medium">Faol Foydalanuvchilar</p>
-                    <p class="text-2xl font-bold text-blue-950 mt-1">1,420 ta</p>
-                </div>
-            </div>
 
-            <!-- Qabullar ro'yxati -->
-            <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
-                <div class="p-4 border-b border-slate-100 bg-slate-50/50">
-                    <h3 class="font-bold text-blue-950">Yaqindagi Onlayn Navbatlar Registratsiyasi</h3>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-book-medical text-blue-500"></i> Shifokor Qo'ygan Kasallik Tarixi
+                        </h3>
+                        <div class="space-y-2 max-h-[220px] overflow-y-auto">
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-sm">
+                                <span class="text-xs font-bold text-slate-400">12.02.2026</span>
+                                <p class="font-semibold text-blue-950 mt-0.5">O'tkir Gastrit</p>
+                                <p class="text-xs text-slate-500">Tashxis qo'ydi: Dr. Axmedov (Gastrenterolog)</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-sm">
+                                <span class="text-xs font-bold text-slate-400">05.05.2026</span>
+                                <p class="font-semibold text-blue-950 mt-0.5">Mavsumiy Allergiya</p>
+                                <p class="text-xs text-slate-500">Tashxis qo'ydi: Dr. Umurova (Allergolog)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-amber-600 bg-amber-50 p-2.5 rounded-xl mt-3 border border-amber-100 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> Kasallik tarixini faqat qabuldagi shifokor yangilay oladi.</p>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100/50 text-slate-500 text-xs font-bold uppercase tracking-wider">
-                                <th class="p-4">ID</th>
-                                <th class="p-4">Shifokor</th>
-                                <th class="p-4">Sana</th>
-                                <th class="p-4">Vaqt</th>
-                                <th class="p-4">Holat</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-appointments-table" class="text-sm text-slate-700 divide-y divide-slate-100">
-                            <!-- Dinamik navbatlar -->
-                        </tbody>
-                    </table>
+
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
+                    <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-pills text-red-400"></i> Faol Dorilar va Retseptlar
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100 flex items-start gap-3">
+                            <div class="bg-emerald-500 text-white p-2.5 rounded-xl text-xs"><i class="fa-solid fa-capsules"></i></div>
+                            <div>
+                                <h4 class="font-bold text-blue-950 text-sm">Omeprazol 20mg</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">Kuniga 1 mahal, ertalab och qoringa</p>
+                                <span class="inline-block mt-1 text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md font-semibold">Tugash sanasi: 28.06.2026</span>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-blue-50/30 rounded-xl border border-blue-100 flex items-start gap-3">
+                            <div class="bg-blue-500 text-white p-2.5 rounded-xl text-xs"><i class="fa-solid fa-droplet"></i></div>
+                            <div>
+                                <h4 class="font-bold text-blue-950 text-sm">Allergo-Maks tomchi</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">Kuniga 2 mahal, ovqatdan so'ng</p>
+                                <span class="inline-block mt-1 text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md font-semibold">Zarurat bo'lganda</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
+                    <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-indigo-500"></i> Kabinet Sozlamalari
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-bell text-slate-500"></i>
+                                <span class="text-sm font-medium text-slate-700">SMS Bildirishnomalar</span>
+                            </div>
+                            <input type="checkbox" checked class="w-4 h-4 accent-emerald-500">
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-shield-halved text-slate-500"></i>
+                                <span class="text-sm font-medium text-slate-700">Ikki bosqichli himoya</span>
+                            </div>
+                            <input type="checkbox" class="w-4 h-4 accent-emerald-500">
+                        </div>
+                        <div class="p-3 bg-red-50 text-red-700 text-xs font-semibold rounded-xl cursor-pointer hover:bg-red-100 transition text-center" onclick="alert('Tizimdan chiqildi!')">
+                            <i class="fa-solid fa-right-from-bracket mr-1"></i> Akkauntdan Chiqish
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
