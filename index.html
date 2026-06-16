@@ -217,6 +217,50 @@
 
             </div>
         </section>
+        <!-- 5. PHARMACY PAGE (Dorixonalar va Dorilar bo'limi) -->
+        <section id="page-pharmacy" class="page-section hidden animate-fade-in">
+            
+            <!-- Yuqori qism: Qidiruv satri -->
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-700 p-6 rounded-3xl text-white mb-6 shadow-lg shadow-emerald-900/10">
+                <h2 class="text-xl font-bold mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-prescription-bottle-medical"></i> Dorilar va Dorixonalar
+                </h2>
+                <div class="bg-white p-1.5 rounded-2xl flex items-center shadow-sm">
+                    <i class="fa-solid fa-magnifying-glass pl-3 text-slate-400"></i>
+                    <input type="text" id="pharmacy-search-input" placeholder="Dori nomini yozing (masalan: Amoksitsillin, Vitamin C)..." class="w-full bg-transparent px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none text-sm">
+                    <button onclick="qidirDorixonadan()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-sm px-5 py-2 rounded-xl transition whitespace-nowrap">Izlash</button>
+                </div>
+            </div>
+
+            <!-- O'rta qism: Dorilar Toifalari (Filterlar) -->
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Dori Toifalari</h3>
+            <div class="flex gap-2 overflow-x-auto pb-4 no-scrollbar mb-4 -mx-4 px-4 md:mx-0 md:px-0">
+                <button onclick="saralaToifa('all')" class="bg-blue-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl whitespace-nowrap shadow-md shadow-blue-600/10 transition">Hammasi</button>
+                <button onclick="saralaToifa('tabletka')" class="bg-white text-slate-700 border border-slate-200 hover:border-blue-500 text-xs font-semibold px-4 py-2.5 rounded-xl whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-tablets text-amber-500"></i> Tabletkalar</button>
+                <button onclick="saralaToifa('antibiyotik')" class="bg-white text-slate-700 border border-slate-200 hover:border-blue-500 text-xs font-semibold px-4 py-2.5 rounded-xl whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-capsules text-red-500"></i> Antibiotiklar</button>
+                <button onclick="saralaToifa('vitamin')" class="bg-white text-slate-700 border border-slate-200 hover:border-blue-500 text-xs font-semibold px-4 py-2.5 rounded-xl whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-prescription-bottle text-emerald-500"></i> Vitaminlar</button>
+            </div>
+
+            <!-- Qidiruv Natijasi chiqadigan joy (Dinamik) -->
+            <div id="pharmacy-search-results" class="hidden mb-6">
+                <h3 class="text-base font-bold text-blue-950 mb-3 flex items-center justify-between">
+                    <span>Qidiruv natijalari:</span>
+                    <button onclick="tozalashPharmaSearch()" class="text-xs text-rose-500 hover:underline">Tozalash</button>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="pharma-results-grid"></div>
+            </div>
+
+            <!-- Pastki qism: Yaqin atrofdagi dorixonalar -->
+            <div id="yaqin-dorixonalar-bo'limi">
+                <h3 class="text-lg font-bold text-blue-950 mb-4 flex items-center gap-2">
+                    <span class="w-1.5 h-5 bg-emerald-500 rounded-full"></span> Yaqin Atrofdagi Dorixonalar
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="yaqin-dorixonalar-grid">
+                    <!-- Dinamik ravishda JS orqali to'ldiriladi -->
+                </div>
+            </div>
+
+        </section>
 
     </main>
 
