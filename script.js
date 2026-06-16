@@ -289,3 +289,102 @@ function toggleDarkMode() {
         icon.className = 'fa-solid fa-moon';
     }
 }
+// Dorixonalar va undagi dorilar ro'yxati (Mock Data)
+const yaqinDorixonalar = [
+    { nomi: "Darmon Farm Central", masofa: "300 m", manzil: "Chilonzor 3-kvartal", telefon: "+998 71 200 01 02", ishVaqti: "24/7 Ochiq" },
+    { nomi: "Oksigen Plus", masofa: "650 m", manzil: "Chilonzor 5-kvartal", telefon: "+998 71 400 11 22", ishVaqti: "08:00 - 23:00" },
+    { nomi: "Grand Pharm №1", masofa: "900 m", manzil: "Katta Qa'ni ko'chasi", telefon: "+998 71 500 88 99", ishVaqti: "24/7 Ochiq" }
+];
+
+const dorilarKatalogi = {
+    "amoksitsillin": [
+        { dori: "Amoksitsillin 500mg", toifa: "antibiyotik", dorixona: "Darmon Farm", narxi: 12000, masofa: "300 m" },
+        { dori: "Amoksitsillin 500mg", toifa: "antibiyotik", dorixona: "Oksigen Plus", narxi: 11500, masofa: "650 m" }
+    ],
+    "vitamin c": [
+        { dori: "Vitamin C Shoshuvchan (Askorbinka)", toifa: "vitamin", dorixona: "Grand Pharm №1", narxi: 8000, masofa: "900 m" },
+        { dori: "Vitamin C 1000mg", toifa: "vitamin", dorixona: "Darmon Farm", narxi: 25000, masofa: "300 m" }
+    ]
+};
+
+// Dorixonalar sahifasi yuklanganda yaqin atrofdagilarni ko'rsatish
+function yuklashYaqinDorixonalar() {
+    const grid = document.getElementById('yaqin-dorixonalar-grid');
+    if(!grid) return;
+    
+    grid.innerHTML = '';
+    yaqinDorixonalar.forEach(dorixona => {
+        grid.innerHTML += `
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">${dorixona.ishVaqti}</span>
+                    <span class="text-xs text-slate-400 font-bold"><i class="fa-solid fa-location-arrow text-blue-500"></i> ${dorixona.masofa}</span>
+                </div>
+                <h4 class="text-base font-bold text-blue-950 mb-2"><i class="fa-solid fa-house-medical text-emerald-500 mr-1"></i> ${dorixona.nomi}</h4>
+                <p class="text-xs text-slate-500 mb-1"><i class="fa-solid fa-map-pin w-4"></i> ${dorixona.manzil}</p>
+                <p class="text-xs text-slate-500 mb-3"><i class="fa-solid fa-phone w-4"></i> ${dorixona.telefon}</p>
+                <button onclick="alert('${dorixona.nomi} bilan aloqa o\'rnatilmoqda...')" class="w-full py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold rounded-xl border border-slate-200 transition">Aloqa chiqish</button>
+            </div>
+        `;
+    });
+}
+
+// Dori qidirish funksiyasi
+function qidirDorixonadan() {
+    const input = document.getElementById('pharmacy-search-input').value.trim().toLowerCase();
+    const resSection = document.getElementById('pharmacy-search-results');
+    const grid = document.getElementById('pharma-results-grid');
+    
+    if(!input) { alert('Dori nomini yozing!'); return; }
+    
+    grid.innerHTML = '';
+    
+    if(dorilarKatalogi[input]) {
+        const saralangan = dorilarKatalogi[input].sort((a,b) => a.narxi - b.narxi);
+        
+        saralangan.forEach((item, index) => {
+            const badge = index === 0 ? `<span class="bg-amber-100 text-amber-800 text-[9px] font-bold px-2 py-0.5 rounded-md">ENG ARZON</span>` : '';
+            grid.innerHTML += `
+                <div class="bg-white p-4 rounded-2xl border-2 border-emerald-500/30 shadow-sm relative">
+                    <div class="flex justify-between items-start mb-2">
+                        <h5 class="font-bold text-blue-950 text-sm">${item.dori}</h5>
+                        ${badge}
+                    </div>
+                    <p class="text-xs text-slate-600 mb-1">Dorixona: <b>${item.dorixona}</b></p>
+                    <p class="text-xs text-slate-500 mb-3">Masofa: ${item.masofa}</p>
+                    <div class="flex justify-between items-center pt-2 border-t border-slate-100">
+                        <span class="text-base font-black text-emerald-600">${item.narxi.toLocaleString()} so'm</span>
+                        <button onclick="alert('Dori band qilindi!')" class="bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-lg font-bold">Band qilish</button>
+                    </div>
+                </div>
+            `;
+        });
+        resSection.classList.remove('hidden');
+    } else {
+        alert('Hech narsa topilmadi. Prototip uchun "Amoksitsillin" yoki "Vitamin C" deb yozib ko\'ring.');
+    }
+}
+
+function tozalashPharmaSearch() {
+    document.getElementById('pharmacy-search-results').classList.add('hidden');
+    document.getElementById('pharmacy-search-input').value = '';
+}
+
+function saralaToifa(toifa) {
+    alert(toifa + " toifasidagi dorilar tez orada bu yerda filtrlanadi!");
+}
+
+// Sahifalar navigatsiyasi mantiqi
+const eskiNavigateTo = window.navigateTo;
+window.navigateTo = function(pageId) {
+    document.querySelectorAll('.page-section').forEach(section => section.classList.add('hidden'));
+    
+    const maqsadSahifa = document.getElementById('page-' + pageId);
+    if(maqsadSahifa) {
+        maqsadSahifa.classList.remove('hidden');
+        if(pageId === 'pharmacy') {
+            yuklashYaqinDorixonalar();
+        }
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
